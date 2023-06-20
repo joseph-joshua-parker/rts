@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const users = [
 	{name: 'Sarah', age: 20},
@@ -12,9 +12,20 @@ interface FoundUser {
 }
 
 const UserSearch: React.FC = ()=>{
-	const inputRef = useRef<HTMLInputElement>();
+					//This value will not have its value initialized until the component's
+					//first render, so we have to  give it an initial value of null
+					//and type it accordingly
+	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [name, setName] = useState(''); //Since sometimes no matching user is found, allow for undefined
 	const [foundUser, setFoundUser] = useState<FoundUser | undefined>();
+
+	useEffect(()=>{
+		//Type guard to ensure useEffect code isn't executed at the wrong time
+		if(!inputRef.current)	return;
+
+		inputRef.current.focus();
+	}, [])
+
 
 	const handleSearch = ()=>{
 		const user = users.find(user => user.name === name)
