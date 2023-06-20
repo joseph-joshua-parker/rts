@@ -1,6 +1,10 @@
+import React from "react";
+
 const EventComponent : React.FC = ()=>{
-						//Implicit any
-	const handleChange = (e)=> console.log(e);
+						//Explicit type annotation, specific to the kind of event,
+						//and its returned element
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => 
+		console.log(event);
 
 	return <div>
 		<input onChange={handleChange}/>
