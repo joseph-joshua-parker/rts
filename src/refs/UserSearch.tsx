@@ -12,6 +12,7 @@ interface FoundUser {
 }
 
 const UserSearch: React.FC = ()=>{
+	const inputRef = useRef<HTMLInputElement>();
 	const [name, setName] = useState(''); //Since sometimes no matching user is found, allow for undefined
 	const [foundUser, setFoundUser] = useState<FoundUser | undefined>();
 
@@ -20,7 +21,7 @@ const UserSearch: React.FC = ()=>{
 		setFoundUser(user);
 	}
 	return <div>User Search
-		<input value={name} onChange={e=>setName(e.target.value)}/>
+		<input ref={inputRef} value={name} onChange={e=>setName(e.target.value)}/>
 		<button onClick={handleSearch}></button>
 		<div>
 
